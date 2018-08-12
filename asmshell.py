@@ -7,10 +7,22 @@ INPUT_FILE = 'input.asm'
 # cuts off last extension
 OUTPUT_FILE = ''.join(INPUT_FILE.split('.')[:-1])
 
+MODES = ('16','32','64')
+CURRENT_MODE = '[BITS 32]\n'
+
+def changemode(userInput):
+    global CURRENT_MODE
+    try:
+        mode = userInput.split('=')[1].strip()
+        if mode in MODES:
+           CURRENT_MODE = "[BITS {}]\n".format(mode)
+    except IndexError:
+        pass # makes mode= to do nothing ( empty argument )
+
 def disas(mnemo):
     # Writes user input to file to comC:\Users\hlz\Desktop\asmshellpile it with nasm
     f = open(INPUT_FILE, 'w')
-    f.write("[bits 32]\n")
+    f.write(CURRENT_MODE)
     f.write(mnemo)
     f.close()
     
@@ -50,6 +62,10 @@ def main():
         userin = input().lower()
         if userin == 'exit' or userin == 'quit':
             return
+        
+        if userin.startswith('mode'):
+            changemode(userin)
+            continue
 
         disas(mnemo=userin)
 
