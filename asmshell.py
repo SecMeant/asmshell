@@ -10,6 +10,7 @@ OUTPUT_FILE = ''.join(INPUT_FILE.split('.')[:-1])
 def disas(mnemo):
     # Writes user input to file to comC:\Users\hlz\Desktop\asmshellpile it with nasm
     f = open(INPUT_FILE, 'w')
+    f.write("[bits 32]\n")
     f.write(mnemo)
     f.close()
     
