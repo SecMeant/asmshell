@@ -59,7 +59,7 @@ def disas(mnemo):
 def main():
     while True:
         print('asmshell > ', end='')
-        userin = input().lower()
+        userin = input().lower().replace(';','\n')
         if userin == 'exit' or userin == 'quit':
             return
         
